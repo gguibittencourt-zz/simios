@@ -5,11 +5,13 @@ services:
     image: postgres:10.7-alpine
     restart: always
     environment:
-      POSTGRES_PASSWORD: postgres
+      - POSTGRES_DB=simios
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
     volumes:
-      - my-db:/var/lib/postgresql
+      - simios:/var/lib/postgresql
 
 volumes:
-  my-db: {}
+  simios: {}

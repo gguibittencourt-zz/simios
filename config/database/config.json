@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "host": "localhost",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "simios",
+    "dialect": "postgresql",
+    "log": true
+  }
+}
