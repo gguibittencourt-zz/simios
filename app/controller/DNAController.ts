@@ -1,8 +1,10 @@
 import { Context } from 'aws-lambda';
 import { DNAService } from '../service/DNAService';
-import { MessageUtil } from '../utils/Message';
+import { bodyToString } from '../utils/Util';
 
-export class DNAController extends DNAService {
+export class DNAController {
+
+  private readonly dnaService: DNAService = new DNAService();
 
   /**
    * Is simian
@@ -13,14 +15,12 @@ export class DNAController extends DNAService {
     const params: any = JSON.parse(event.body);
 
     try {
-      const result = await this.isSimians({
-        name: params.name,
-        id: params.id,
+      const result = await this.dnaService.isSimian({
+        chain: params.dna,
       });
-      return MessageUtil.success(result);
+      return bodyToString(result);
     } catch (err) {
       console.log(err);
-      return MessageUtil.error(err.code, err.message);
     }
   }
 
@@ -29,11 +29,10 @@ export class DNAController extends DNAService {
    */
   async stats() {
     try {
-      const result = await this.statss();
-      return JSON.stringify(result);
+      const result = await this.dnaService.stats();
+      return bodyToString(result);
     } catch (err) {
       console.log(err);
-      return MessageUtil.error(err.code, err.message);
     }
   }
 }

@@ -9,14 +9,14 @@ export class DNAService {
                    count(*) filter ( where is_simian = false ) as count_human_dna
             from dna
         )
-        select count_mutant_dna, count_human_dna, round((count_human_dna::decimal / NULLIF(count_mutant_dna, 0)), 2) as ratio
+        select COALESCE(count_mutant_dna, 0) as count_mutant_dna, COALESCE(count_human_dna, 0) as count_human_dna, COALESCE(round((count_human_dna::decimal / NULLIF(count_mutant_dna, 0)), 2), 0) as ratio
         from w_stats`;
 
   /**
    * Is simian
    * @param params
    */
-  protected async isSimians(params: any): Promise<object> {
+  public async isSimian(params: any): Promise<object> {
     try {
       return await DNAModel.create({
         id: 1,
@@ -32,7 +32,7 @@ export class DNAService {
   /**
    * Stats
    */
-  protected async statss(): Promise<object> {
+  public async stats(): Promise<object> {
     try {
       return await ConfigSequelize.INSTANCE.sequelize.query(
         DNAService.STATS_QUERY,
