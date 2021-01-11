@@ -20,5 +20,5 @@ export class Constants {
                COALESCE(round((count_human_dna::decimal / NULLIF(count_mutant_dna, 0)), 2), 0) as ratio
         from w_stats`;
   public static readonly REGEX: RegExp = new RegExp('(?![ATGC]).');
-  public static readonly REGEX_REPEATED: RegExp = new RegExp('[ATCG]\\1{3}');
+  public static readonly REGEX_REPEATED: RegExp = new RegExp('([ATCG])\\1{3}');
 }

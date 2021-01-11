@@ -13,14 +13,16 @@ export class DNAService {
     try {
       const isValid: boolean = this.isValid(chainDNA);
       if (isValid) {
-        const isSimianHorizontal = chainDNA.some((value: string) => Constants.REGEX_REPEATED.test(value));
-        if (isSimianHorizontal) {
-          await this.create(chainDNA, true);
-          return true;
+        let isSimian: boolean = chainDNA.some((value: string) => Constants.REGEX_REPEATED.test(value));
+        if (!isSimian) {
+          isSimian = DNAService.diagonalCalculate(chainDNA);
         }
-        return true;
+        if (!isSimian) {
+          isSimian = DNAService.diagonalCalculate(chainDNA, true);
+        }
+        await this.create(chainDNA, isSimian);
+        return isSimian;
       }
-      await this.create(chainDNA, false);
       return false;
     } catch (err) {
       console.log(err);
@@ -40,6 +42,29 @@ export class DNAService {
       console.log(err);
       throw err;
     }
+  }
+
+  /**
+   * diagonalCalculate
+   */
+  private static diagonalCalculate(chainDNA: string[], bottomToTop?: boolean): boolean {
+    const length = chainDNA.length;
+    for (let k = 0; k <= 2 * (length - 1); k += 1) {
+      const temp: string[] = [];
+      for (let y = length - 1; y >= 0; y -= 1) {
+        const x = k - (bottomToTop ? length - y : y);
+        if (x >= 0 && x < length) {
+          temp.push(chainDNA[y][x]);
+        }
+      }
+      if (temp.length > 3) {
+        const isSimian: boolean = Constants.REGEX_REPEATED.test(temp.join(''));
+        if (isSimian) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**
