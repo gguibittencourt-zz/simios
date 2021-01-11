@@ -4,6 +4,7 @@ module.exports = {
       id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
       },
       chain: Sequelize.DataTypes.JSON,
       is_simian: Sequelize.DataTypes.BOOLEAN,

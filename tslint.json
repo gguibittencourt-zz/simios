@@ -10,5 +10,13 @@
     "exclude": [
       "tests/*books.mock.ts"
     ]
+  },
+  "rules": {
+    "max-line-length": [
+      true,
+      {
+        "limit": 200
+      }
+    ]
   }
 }

@@ -15,8 +15,8 @@ config.setupConnection();
 
 const dnaController = new DNAController();
 
-export const isSimian: Handler = (event: any, context: Context) => {
-  return dnaController.isSimian(event, context);
+export const isSimian: Handler = (event: any) => {
+  return dnaController.isSimian(event);
 };
 
 export const stats: Handler = () => dnaController.stats();

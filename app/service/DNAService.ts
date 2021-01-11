@@ -1,28 +1,27 @@
 import { DNAModel } from '../model/DNAModel';
 import { ConfigSequelize } from '../config/sequelize/config.sequelize';
 import sequelize from 'sequelize';
+import { Constants } from '../utils/Util';
 
 export class DNAService {
 
-  private static readonly STATS_QUERY: string = `WITH w_stats as (
-            select count(*) filter ( where is_simian )         as count_mutant_dna,
-                   count(*) filter ( where is_simian = false ) as count_human_dna
-            from dna
-        )
-        select COALESCE(count_mutant_dna, 0) as count_mutant_dna, COALESCE(count_human_dna, 0) as count_human_dna, COALESCE(round((count_human_dna::decimal / NULLIF(count_mutant_dna, 0)), 2), 0) as ratio
-        from w_stats`;
-
   /**
    * Is simian
-   * @param params
+   * @param chainDNA
    */
-  public async isSimian(params: any): Promise<object> {
+  public async isSimian(chainDNA: string[]): Promise<boolean> {
     try {
-      return await DNAModel.create({
-        id: 1,
-        chain: 'teste',
-        is_simian: false,
-      });
+      const isValid: boolean = this.isValid(chainDNA);
+      if (isValid) {
+        const isSimianHorizontal = chainDNA.some((value: string) => Constants.REGEX_REPEATED.test(value));
+        if (isSimianHorizontal) {
+          await this.create(chainDNA, true);
+          return true;
+        }
+        return true;
+      }
+      await this.create(chainDNA, false);
+      return false;
     } catch (err) {
       console.log(err);
       throw err;
@@ -35,11 +34,37 @@ export class DNAService {
   public async stats(): Promise<object> {
     try {
       return await ConfigSequelize.INSTANCE.sequelize.query(
-        DNAService.STATS_QUERY,
+        Constants.STATS_QUERY,
         { type: sequelize.QueryTypes.SELECT });
     } catch (err) {
       console.log(err);
       throw err;
     }
+  }
+
+  /**
+   * Stats
+   */
+  private async create(chain: string[], isSimian: boolean): Promise<object> {
+    try {
+      return  await DNAModel.create({
+        chain: JSON.stringify(chain),
+        is_simian: isSimian,
+      });
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+
+  /**
+   * isValid
+   * @param chainDNA
+   */
+  private isValid(chainDNA: string[]): boolean {
+    if (!chainDNA || !chainDNA.length) {
+      return false;
+    }
+    return !chainDNA.some((value: string) => Constants.REGEX.test(value) || value.length !== chainDNA.length);
   }
 }

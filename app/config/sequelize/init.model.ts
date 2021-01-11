@@ -6,6 +6,7 @@ export function initModel(sequelize: Sequelize) {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     chain: DataTypes.JSON,
     is_simian: DataTypes.BOOLEAN,

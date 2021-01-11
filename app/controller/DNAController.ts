@@ -1,6 +1,5 @@
-import { Context } from 'aws-lambda';
 import { DNAService } from '../service/DNAService';
-import { bodyToString } from '../utils/Util';
+import { buildResponse, buildResponseError } from '../utils/Util';
 
 export class DNAController {
 
@@ -9,18 +8,19 @@ export class DNAController {
   /**
    * Is simian
    * @param {*} event
-   * @param context
    */
-  async isSimian(event: any, context?: Context) {
+  async isSimian(event: any) {
     const params: any = JSON.parse(event.body);
 
     try {
-      const result = await this.dnaService.isSimian({
-        chain: params.dna,
-      });
-      return bodyToString(result);
+      const result: boolean = await this.dnaService.isSimian(params.dna);
+      if (result) {
+        return buildResponse();
+      }
+      return buildResponseError();
     } catch (err) {
       console.log(err);
+      return buildResponseError();
     }
   }
 
@@ -30,7 +30,7 @@ export class DNAController {
   async stats() {
     try {
       const result = await this.dnaService.stats();
-      return bodyToString(result);
+      return buildResponse(result[0]);
     } catch (err) {
       console.log(err);
     }
