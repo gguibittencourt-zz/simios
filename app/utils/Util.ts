@@ -19,6 +19,7 @@ export class Constants {
                COALESCE(count_human_dna, 0) as count_human_dna,
                COALESCE(round((count_human_dna::decimal / NULLIF(count_mutant_dna, 0)), 2), 0) as ratio
         from w_stats`;
-  public static readonly REGEX: RegExp = new RegExp('(?![ATGC]).');
+  public static readonly EXISTS_WITH_SAME_CHAIN_QUERY: string = 'select exists(select 1 from dna where chain::text = :chainDNA);';
+  public static readonly REGEX_CHECK_ELEMENTS: RegExp = new RegExp('(?![ATGC]).');
   public static readonly REGEX_REPEATED: RegExp = new RegExp('([ATCG])\\1{3}');
 }
