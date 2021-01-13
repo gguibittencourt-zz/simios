@@ -28,27 +28,43 @@ describe('Stats [GET]', () => {
 
 describe('Is simian [POST]', () => {
   describe('success', () => {
-    it('new DNA', () => {
-      const sinonMock: SinonMock = sinon.mock(DNAModel);
-
-      sinonMock.expects('createDNA').resolves(dnaMock.createDNA);
-      sinonMock.expects('existsWithSameChain').resolves(dnaMock.notExistsWithSameChain);
-
+    it('DNA chain with repeated elements in horizontal', () => {
       function handlerEvent(): HandlerEvent<any> {
         return {
           body: JSON.stringify({
-            dna: ['ATGCGA', 'CAGTGC', 'TTATGT', 'AGAATG', 'GCCCTA', 'TCACTG'],
+            dna: ['ATGCGA', 'CAGTGC', 'TTATGT', 'AGATTG', 'GCCCCA', 'TCACTG'],
           }),
         };
       }
 
-      return successTest(handlerEvent, sinonMock);
+      return successTest(handlerEvent);
+    });
+
+    it('DNA chain with repeated elements in diagonal', () => {
+      function handlerEvent(): HandlerEvent<any> {
+        return {
+          body: JSON.stringify({
+            dna: ['ATGCGA', 'CAGCGC', 'TTATGT', 'AGTCTG', 'GTCGCA', 'TCACTG'],
+          }),
+        };
+      }
+
+      return successTest(handlerEvent);
+    });
+
+    it('DNA chain with repeated elements in vertical', () => {
+      function handlerEvent(): HandlerEvent<any> {
+        return {
+          body: JSON.stringify({
+            dna: ['ATGCGA', 'CAGCGA', 'TTAAGA', 'AGTCTA', 'GTCGCA', 'TCACTG'],
+          }),
+        };
+      }
+
+      return successTest(handlerEvent);
     });
 
     it('DNA chain already exists', () => {
-      const sinonMock: SinonMock = sinon.mock(DNAModel);
-      sinonMock.expects('existsWithSameChain').resolves(dnaMock.existsWithSameChain);
-
       function handlerEvent(): HandlerEvent<any> {
         return {
           body: JSON.stringify({
@@ -57,7 +73,7 @@ describe('Is simian [POST]', () => {
         };
       }
 
-      return successTest(handlerEvent, sinonMock);
+      return successTest(handlerEvent, true);
     });
   });
 
@@ -158,7 +174,14 @@ describe('Is simian [POST]', () => {
   });
 });
 
-function successTest(handlerEvent: () => lambdaTester.HandlerEvent<any>, sinonMock: SinonMock) {
+function successTest(handlerEvent: () => lambdaTester.HandlerEvent<any>, alreadyExists?: boolean) {
+  const sinonMock: SinonMock = sinon.mock(DNAModel);
+  if (alreadyExists) {
+    sinonMock.expects('existsWithSameChain').resolves(dnaMock.existsWithSameChain);
+  } else {
+    sinonMock.expects('createDNA').resolves(dnaMock.createDNA);
+    sinonMock.expects('existsWithSameChain').resolves(dnaMock.notExistsWithSameChain);
+  }
   return lambdaTester(isSimian)
     .event(handlerEvent)
     .expectResult((result: any) => {

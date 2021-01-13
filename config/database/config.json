@@ -4,7 +4,7 @@
     "username": "postgres",
     "password": "postgres",
     "database": "simios",
-    "dialect": "postgresql",
+    "dialect": "postgres",
     "log": true
   }
 }

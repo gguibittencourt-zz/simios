@@ -16,8 +16,8 @@ export class DNAModel extends Model {
 
   public static async existsWithSameChain(chain: string[]): Promise<any> {
     return await ConfigSequelize.INSTANCE.sequelize.query(
-      Constants.EXISTS_WITH_SAME_CHAIN_QUERY,
-      { type: sequelize.QueryTypes.SELECT, plain: true, replacements: { chainDNA: JSON.stringify(chain) } });
+        Constants.EXISTS_WITH_SAME_CHAIN_QUERY,
+        { type: sequelize.QueryTypes.SELECT, plain: true, replacements: { chainDNA: JSON.stringify(chain) } });
   }
 
   public static async stats(): Promise<object> {

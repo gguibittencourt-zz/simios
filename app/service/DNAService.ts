@@ -11,12 +11,9 @@ export class DNAService {
     try {
       const isValid: boolean = await this.isValid(chainDNA);
       if (isValid) {
-        let isSimian: boolean = chainDNA.some((value: string) => Constants.REGEX_REPEATED.test(value));
+        let isSimian = DNAService.hasRepeatedElements(chainDNA);
         if (!isSimian) {
-          isSimian = DNAService.diagonalCalculate(chainDNA);
-        }
-        if (!isSimian) {
-          isSimian = DNAService.diagonalCalculate(chainDNA, true);
+          isSimian = DNAService.hasRepeatedElements(chainDNA, true);
         }
         const { exists } = await DNAModel.existsWithSameChain(chainDNA);
         if (!exists) {
@@ -31,27 +28,37 @@ export class DNAService {
   }
 
   /**
-   * Returns DNA verification statistics
+   * Returns a DNA verification statistics
    */
   public static async stats(): Promise<object> {
     return await DNAModel.stats();
   }
 
   /**
-   * diagonalCalculate
+   * Verify if has any horizontal or diagonal or vertical with four or more repeated elements
+   * @param {string[]} chainDNA
+   * @param {boolean} bottomToTop
    */
-  private static diagonalCalculate(chainDNA: string[], bottomToTop?: boolean): boolean {
+  private static hasRepeatedElements(chainDNA: string[], bottomToTop?: boolean): boolean {
+    const isSimian: boolean = chainDNA.some((value: string) => Constants.REGEX_REPEATED.test(value));
+    if (isSimian) {
+      return isSimian;
+    }
     const length: number = chainDNA.length;
     for (let k = 0; k <= 2 * (length - 1); k += 1) {
-      const temp: string[] = [];
+      const tempVertical: string[] = [];
+      const tempDiagonal: string[] = [];
       for (let y: number = length - 1; y >= 0; y -= 1) {
+        if (k >= 0 && k < length && !bottomToTop) {
+          tempVertical.push(chainDNA[y][k]);
+        }
         const x: number = k - (bottomToTop ? length - y : y);
         if (x >= 0 && x < length) {
-          temp.push(chainDNA[y][x]);
+          tempDiagonal.push(chainDNA[y][x]);
         }
       }
-      if (temp.length > 3) {
-        const isSimian: boolean = Constants.REGEX_REPEATED.test(temp.join(''));
+      if (tempDiagonal.length > 3 || tempVertical.length > 3) {
+        const isSimian: boolean = Constants.REGEX_REPEATED.test(tempDiagonal.join('')) || Constants.REGEX_REPEATED.test(tempVertical.join(''));
         if (isSimian) {
           return true;
         }

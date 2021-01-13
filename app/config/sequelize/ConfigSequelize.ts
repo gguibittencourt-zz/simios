@@ -18,17 +18,26 @@ export class ConfigSequelize {
       return;
     }
     try {
-      this.sequelize = new Sequelize(
-        process.env.DB_NAME,
-        process.env.DB_USERNAME,
-        process.env.DB_PASSWORD, {
-          host: process.env.DB_HOSTNAME,
-          dialect: 'postgres',
-        });
+      this.sequelize = ConfigSequelize.createConnection();
       ConfigSequelize.initModel(this.sequelize);
     } catch (e) {
       throw e;
     }
+  }
+
+  private static createConnection(): Sequelize {
+    if (process.env.NODE_ENV === 'dev') {
+      return new Sequelize(`${process.env.DB_HOSTNAME}:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
+        dialect: 'postgres',
+      });
+    }
+    return new Sequelize(
+      process.env.DB_NAME,
+      process.env.DB_USERNAME,
+      process.env.DB_PASSWORD, {
+        host: process.env.DB_HOSTNAME,
+        dialect: 'postgres',
+      });
   }
 
   private static initModel(sequelize: Sequelize): void {
