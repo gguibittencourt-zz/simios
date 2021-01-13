@@ -22,4 +22,5 @@ export class Constants {
   public static readonly EXISTS_WITH_SAME_CHAIN_QUERY: string = 'select exists(select 1 from dna where chain::text = :chainDNA);';
   public static readonly REGEX_CHECK_ELEMENTS: RegExp = new RegExp('(?![ATGC]).');
   public static readonly REGEX_REPEATED: RegExp = new RegExp('([ATCG])\\1{3}');
+  public static readonly MINIMUM_LENGTH: number = 4;
 }

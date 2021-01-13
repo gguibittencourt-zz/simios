@@ -57,7 +57,7 @@ export class DNAService {
           tempDiagonal.push(chainDNA[y][x]);
         }
       }
-      if (tempDiagonal.length > 3 || tempVertical.length > 3) {
+      if (tempDiagonal.length >= Constants.MINIMUM_LENGTH || tempVertical.length >= Constants.MINIMUM_LENGTH) {
         const isSimian: boolean = Constants.REGEX_REPEATED.test(tempDiagonal.join('')) || Constants.REGEX_REPEATED.test(tempVertical.join(''));
         if (isSimian) {
           return true;
@@ -72,7 +72,7 @@ export class DNAService {
    * @param {string[]} chainDNA
    */
   private static async isValid(chainDNA: string[]): Promise<boolean> {
-    if (!chainDNA || !chainDNA.length) {
+    if (!chainDNA || chainDNA.length < Constants.MINIMUM_LENGTH) {
       return false;
     }
     return !chainDNA.some((value: string) => Constants.REGEX_CHECK_ELEMENTS.test(value) || value.length !== chainDNA.length);
