@@ -12,10 +12,8 @@ plugins:
   - serverless-offline
 
 package:
-  exclude:
   include:
     - environments/.env.dev
-    - environments/.env.prod
 
 resources:
   Resources:
