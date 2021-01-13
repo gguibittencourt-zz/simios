@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+  postgres:
+    image: postgres:10.7-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=simios
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql
+
+  simios:
+    restart: "no"
+    build: ./
+    environment:
+      - NODE_ENV=dev
+    ports:
+      - 3011:3000
+      - 9233:9233 # Debugging
+    volumes:
+      - ./:/app
+      - node_modules_simios:/app/node_modules
+
+volumes:
+  db: {}
+  node_modules_simios: {}

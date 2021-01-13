@@ -1,3 +1,8 @@
+/**
+ * Build a response with data and statusCode
+ * @param data
+ * @param {number} statusCode
+ */
 export function buildResponse(data?: any, statusCode = 200) {
   return {
     statusCode,
@@ -5,6 +10,10 @@ export function buildResponse(data?: any, statusCode = 200) {
   };
 }
 
+/**
+ * Build a response error with statusCode
+ * @param {number} statusCode
+ */
 export function buildResponseError(statusCode = 403) {
   return buildResponse(undefined, statusCode);
 }

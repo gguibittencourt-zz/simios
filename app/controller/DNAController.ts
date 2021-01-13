@@ -5,7 +5,7 @@ export class DNAController {
 
   /**
    * Verify if a DNA belongs to a human or simian
-   * @param {*} event
+   * @param event
    * @return statusCode 200 if is simian or 403 if is human or has error
    */
   async isSimian(event: any): Promise<any> {

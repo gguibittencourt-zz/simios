@@ -1,6 +1,6 @@
 {
   "dev": {
-    "host": "localhost",
+    "host": "postgres",
     "username": "postgres",
     "password": "postgres",
     "database": "simios",

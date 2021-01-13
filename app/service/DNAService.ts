@@ -35,7 +35,7 @@ export class DNAService {
   }
 
   /**
-   * Verify if has any horizontal or diagonal or vertical with four or more repeated elements
+   * Verify if has any horizontal or diagonal or vertical with four or more repeated elements in a chain DNA
    * @param {string[]} chainDNA
    * @param {boolean} bottomToTop
    */
