@@ -16,7 +16,7 @@ Abaixo segue as tecnologias utilizadas neste projeto:
 - API Gateway - Serviço para criação, publicação, manutenção, monitoramento e proteção de APIs REST;
 - RDS - Serviço de banco de dados relacional distribuído;
 - RDS Proxy - Proxy de banco de dados totalmente gerenciado que torna os aplicativos mais escaláveis, mais resilientes a falhas de banco de dados e mais seguros;
-- [chain](https://github.com/chaijs/chai) - Chai é uma biblioteca de asserção, semelhante à embutida do Node assert;
+- [chai](https://github.com/chaijs/chai) - Chai é uma biblioteca de asserção, semelhante à embutida do Node assert;
 - [cross-env](https://github.com/kentcdodds/cross-env) - Cross-env é uma biblioteca para executar scripts que definem e usam variáveis ​​de ambiente em plataformas;
 - [dotenv](https://github.com/motdotla/dotenv) - Dotenv é um módulo de dependência zero que carrega variáveis ​​de ambiente de um .env arquivo para o process.env;
 - [lambda-tester](https://github.com/vandium-io/lambda-tester) - Lambda-tester é uma biblioteca para escrever testes de unidade para AWS Lambda funções usando Node.js;
