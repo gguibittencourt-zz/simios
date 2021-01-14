@@ -130,7 +130,7 @@ POST /simian
 ```
 
 #### Stats
-Retorna as estatísticas de verificações de DNA, onde deve informar a quantidade de DNA’s símios, quantidade de DNA’s humanos, e a proporção de símios para a população humana.
+Retorna as estatísticas de verificações de DNA, onde informa a quantidade de DNA’s símios, quantidade de DNA’s humanos, e a proporção de símios para a população humana.
 
 **Requisição:**
 ```json
