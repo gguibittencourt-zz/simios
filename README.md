@@ -124,7 +124,7 @@ Para executar os testes é necessário acessar o container `simios_simios_1` do 
     
 - Após executar será criada uma pasta `coverage` com os resultados dos testes, para verificar o percentual de cobertura basta acessar `coverage/lcov-report/app` e abrir o arquivo `index.html`
  
- ![Alt text](/assets/coverage.png?raw=true)
+ ![alt text](https://raw.githubusercontent.com/gguibittencourt/simios/master/assets/coverage.png?token=ADR54OCSY73MJJXFO35DQRLAACHCQ)
  
 ### :arrow_right_hook: API
 
