@@ -97,8 +97,7 @@ simios
 
 A aplicação estará rodando na URL `http://localhost:3011`
 
-* Ao executar o comando `docker-compose up -d`, para subir a aplicação o Docker executa o comando:
-
+Ao executar o comando `docker-compose up -d`, para subir a aplicação o Docker executa o comando:
 
     $ npm run local
 
@@ -106,8 +105,7 @@ A aplicação estará rodando na URL `http://localhost:3011`
 
 A aplicação estará rodando na URL `https://39dvnchwsa.execute-api.us-east-1.amazonaws.com/dev`
 
-* Para fazer deploy da aplicação é necessário acessar o container `simios_simios_1` do docker e rodar o comando:
-    
+Para fazer deploy da aplicação é necessário acessar o container `simios_simios_1` do docker e rodar o comando:
     
     $ npm run deploy
     
