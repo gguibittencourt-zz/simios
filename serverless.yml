@@ -12,6 +12,8 @@ plugins:
   - serverless-offline
 
 package:
+  exclude:
+    - assets
   include:
     - environments/.env.dev
 
@@ -31,14 +33,18 @@ functions:
       - http:
           path: simian
           method: post
-          cors: true
+          cors:
+            headers: '*'
+            origin: '*'
   stats:
     handler: app/handler.stats
     events:
       - http:
           path: stats
           method: get
-          cors: true
+          cors:
+            headers: '*'
+            origin: '*'
     vpc:
       securityGroupIds:
         - {Ref: LambdaSecurityGroup}

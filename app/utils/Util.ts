@@ -6,6 +6,11 @@
 export function buildResponse(data?: any, statusCode = 200) {
   return {
     statusCode,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+    },
     body: JSON.stringify(data),
   };
 }

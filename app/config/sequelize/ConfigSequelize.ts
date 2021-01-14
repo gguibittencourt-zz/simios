@@ -6,11 +6,7 @@ export class ConfigSequelize {
   public sequelize: Sequelize = null;
 
   constructor() {
-    if (!ConfigSequelize.INSTANCE) {
-      ConfigSequelize.INSTANCE = this;
-      return;
-    }
-    return ConfigSequelize.INSTANCE;
+    ConfigSequelize.INSTANCE = this;
   }
 
   public async setupConnection(): Promise<void> {
