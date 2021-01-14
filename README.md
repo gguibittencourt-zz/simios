@@ -8,26 +8,34 @@ Este projeto visa a criação de uma API REST em Node.js que detecta se uma sequ
 
 ### :arrow_right_hook: Feito Com
 
+O projeto foi desenvolvido como serverless utilizando AWS Lambda, API Gateway, RDS (Postgres) e RDS Proxy.
+
 Abaixo segue as tecnologias utilizadas neste projeto:
 
-- [ESLint](https://eslint.org/) - O ESLint é uma ferramenta de lint plugável para JavaScript;
-  - [eslint-config-standard](https://github.com/standard/eslint-config-standard) - Este pacote fornece o .eslintrc do Standard como uma configuração compartilhada extensível;
-  - [eslint-plugin-standard](https://github.com/standard/eslint-plugin-standard) - Plugin do ESLint com regras do Standard;
-  - [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) - Plugin do ESLint com regras para ajudar na validação de imports;
-  - [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node) - Plugin do ESLint com regras adicionais para Node.js;
-  - [eslint-plugin-promise](https://github.com/xjamundx/eslint-plugin-promise) - Plugin do ESLint com regras para aplicar as melhores práticas para promessas;
-- [EditorConfig](https://editorconfig.org/) - O EditorConfig é um formatador de arquivos e coleções em forma de Plugin para Editores de código/texto com o objetivo de manter um padrão de código consistente entre diferentes editores, IDE's ou ambientes;
+- [chain](https://github.com/chaijs/chai) - Chai é uma biblioteca de asserção, semelhante à embutida do Node assert;
+- [cross-env](https://github.com/kentcdodds/cross-env) - Cross-env é uma biblioteca para executar scripts que definem e usam variáveis ​​de ambiente em plataformas;
+- [dotenv](https://github.com/motdotla/dotenv) - Dotenv é um módulo de dependência zero que carrega variáveis ​​de ambiente de um .env arquivo para o process.env;
+- [lambda-tester](https://github.com/vandium-io/lambda-tester) - Lambda-tester é uma biblioteca para escrever testes de unidade para AWS Lambda funções usando Node.js;
+- [mocha](https://github.com/mochajs/mocha) - Mocha é uma biblioteca de teste para Node.js, criado para ser simples, extensível e rápido;
 - [Node.js](https://github.com/nodejs/node) - Node.js é um ambiente de tempo de execução JavaScript. Ele executa o código JavaScript fora de um navegador;
-    - [Express](https://github.com/expressjs/express) - Framework para Node.js que otimiza a construção de aplicações web e API's;
-    - [Puppeteer](https://github.com/puppeteer/puppeteer) - Biblioteca para Node.js que fornece uma API de alto nível para controlar o Chrome ou Chromium através do protocolo DevTools;
+- [nodemon](https://github.com/remy/nodemon) - Nodemon é uma ferramenta que ajuda a desenvolver aplicativos baseados em node.js reiniciando automaticamente o aplicativo quando mudanças são detectadas;
+- [pg](https://github.com/brianc/node-postgres/tree/master/packages/pg) - Pg é um cliente PostgreSQL sem bloqueio para Node.js;
+- [sequelize](https://github.com/sequelize/sequelize) - Sequelize é um ORM para Node.js baseado em promessa;
+- [serverless](https://github.com/serverless/serverless) - Serverless é um framework para construir aplicativos compostos de microsserviços que são executados em resposta a eventos;
+    - [serverless-offline](https://github.com/dherault/serverless-offline) - Plugin para emular AWS λ e API Gateway em sua máquina local;
+    - [serverless-plugin-typescript](https://github.com/prisma-labs/serverless-plugin-typescript) - Plug-in para suporte a Typecript;
+- [sinon](https://github.com/sinonjs/sinon) - Sinon é uma biblioteca JavaScript para testes spies, stubs and mocks;
+- [tslint](https://github.com/palantir/tslint) - TSLint é uma ferramenta de análise estática extensível que verifica o código TypeScript para erros de legibilidade, manutenção e funcionalidade;
+  - [tslint-config-airbnb](https://github.com/progre/tslint-config-airbnb) - Uma configuração TSLint para o Guia de estilo do Airbnb JavaScript;
 - [TypeScript](https://github.com/microsoft/TypeScript) - TypeScript é um superconjunto de JavaScript desenvolvido pela Microsoft que adiciona tipagem e alguns outros recursos a linguagem;
     - [ts-node-dev](https://github.com/whitecolor/ts-node-dev) - Ferramenta que compila seus projetos com Typescript e reinicia o projeto quando o arquivo é modificado;
-    - [tsconfig-paths](https://github.com/dividab/tsconfig-paths) - Ferramenta que permite mapear os módulos da aplicação e criar atalhos para essas pastas/arquivos de maneira escalável.
 
 ## :rocket: Começando
 
 ### :arrow_right_hook: Pré-requisitos
 
+- Node > v10.13.0
+- Npm > v6.4.1
 - Docker
 
 ### :arrow_right_hook: Estrutura de arquivos
@@ -49,6 +57,8 @@ simios
 │   ├── utils/
 │   │   └── Util.ts
 │   └── handler.ts
+├── assets/
+│   └── coverage.png
 ├── config/
 │   ├── database/
 │   │    ├── migrations/
@@ -77,18 +87,25 @@ simios
     $ cd simios
     $ docker-compose up -d
 
-### :arrow_right_hook: Executar a aplicação
+### :arrow_right_hook: Aplicação
 
 #### Local
 
 A aplicação estará rodando na URL `http://localhost:3011`
 
-
 #### Produção
+
+A aplicação estará rodando na URL `https://39dvnchwsa.execute-api.us-east-1.amazonaws.com/dev`
+
+Utiliza os serviços da AWS:
+- Lambda
+- API Gateway
+- RDS
+- RDS Proxy
 
 ### :arrow_right_hook: Testes
 
-Para executar os testes:
+Para executar os testes é necessário acessar o container `simios_simios_1` do docker e rodar o comando:
 
     $ npm run coverage
     

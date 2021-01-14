@@ -4,6 +4,7 @@
 	"extension": [".ts"],
 	"exclude": [
     "config",
+    "assets",
 		"coverage",
 		"tests"
 	]
