@@ -12,6 +12,10 @@ O projeto foi desenvolvido como serverless utilizando AWS Lambda, API Gateway, R
 
 Abaixo segue as tecnologias utilizadas neste projeto:
 
+- AWS Lambda - Plataforma de computação sem servidor e orientada a eventos
+- API Gateway - Serviço para criação, publicação, manutenção, monitoramento e proteção de APIs REST;
+- RDS - Serviço de banco de dados relacional distribuído;
+- RDS Proxy - Proxy de banco de dados totalmente gerenciado que torna os aplicativos mais escaláveis, mais resilientes a falhas de banco de dados e mais seguros;
 - [chain](https://github.com/chaijs/chai) - Chai é uma biblioteca de asserção, semelhante à embutida do Node assert;
 - [cross-env](https://github.com/kentcdodds/cross-env) - Cross-env é uma biblioteca para executar scripts que definem e usam variáveis ​​de ambiente em plataformas;
 - [dotenv](https://github.com/motdotla/dotenv) - Dotenv é um módulo de dependência zero que carrega variáveis ​​de ambiente de um .env arquivo para o process.env;
@@ -28,7 +32,7 @@ Abaixo segue as tecnologias utilizadas neste projeto:
 - [tslint](https://github.com/palantir/tslint) - TSLint é uma ferramenta de análise estática extensível que verifica o código TypeScript para erros de legibilidade, manutenção e funcionalidade;
   - [tslint-config-airbnb](https://github.com/progre/tslint-config-airbnb) - Uma configuração TSLint para o Guia de estilo do Airbnb JavaScript;
 - [TypeScript](https://github.com/microsoft/TypeScript) - TypeScript é um superconjunto de JavaScript desenvolvido pela Microsoft que adiciona tipagem e alguns outros recursos a linguagem;
-    - [ts-node-dev](https://github.com/whitecolor/ts-node-dev) - Ferramenta que compila seus projetos com Typescript e reinicia o projeto quando o arquivo é modificado;
+    - [ts-node-dev](https://github.com/whitecolor/ts-node-dev) - Ferramenta que compila seus projetos com Typescript e reinicia o projeto quando o arquivo é modificado.
 
 ## :rocket: Começando
 
@@ -95,21 +99,24 @@ A aplicação estará rodando na URL `http://localhost:3011`
 
 * Ao executar o comando `docker-compose up -d`, para subir a aplicação o Docker executa o comando:
 
+
     $ npm run local
 
 #### Produção
 
 A aplicação estará rodando na URL `https://39dvnchwsa.execute-api.us-east-1.amazonaws.com/dev`
 
+* Para fazer deploy da aplicação é necessário acessar o container `simios_simios_1` do docker e rodar o comando:
+    
+    
+    $ npm run deploy
+    
 Utiliza os serviços da AWS:
 - Lambda
 - API Gateway
 - RDS
 - RDS Proxy
 
-* Para fazer deploy da aplicação é necessário acessar o container `simios_simios_1` do docker e rodar o comando:
-
-    $ npm run deploy
 
 ### :arrow_right_hook: Testes
 
